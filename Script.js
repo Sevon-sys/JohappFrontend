@@ -42,6 +42,7 @@ registerForm.onsubmit = (e) => {
     },
     body: JSON.stringify(regObject)
   })
+  registerForm.reset()
 }
 
 var x = document.getElementById("loginForm");

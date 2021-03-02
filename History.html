@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
     <link rel="stylesheet" href="Style.css">
-    <title>JohannasApp Income</title>
+    ::-webkit-scrollbar {
+        width: 10px;
+      }
 </head>
 <body>
     <div id="menu">
@@ -21,19 +27,23 @@
             </li>
     </div>
     <div id="content">
-        <h1 class="Header"><em>Income</em></h1>
-        <div id="div-form">
-            <form id="IncomeForm" class="class-form">
-                <label for="Purchase"></label>
-                <input type="text" placeholder="Your Purchase">
-                <br>
-                <label for="Price"></label>
-                <input type="text" placeholder="Purchase Price">
-                <button type="submit" class="submit">Submit</button>
-
-            </form>
+        <h1 class="Header">History</h1>
+        <div >
+            <table class="divTable">
+                <tr>
+                  <th>Name</th>
+                  <th>Price</th>
+                </tr>
+                <tr>
+                  <td>January</td>
+                  <td>$100</td>
+                </tr>
+                <tr>
+                  <td>February</td>
+                  <td>$80</td>
+                </tr>
+              </table>
         </div>
     </div>
-    <script src="Income.js"></script>
 </body>
 </html>
