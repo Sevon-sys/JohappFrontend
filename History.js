@@ -1,3 +1,5 @@
+const historyList = document.querySelector('.history-list')
+
 historyBtn.onclick = (e) => {
     e.preventDefault();
 
