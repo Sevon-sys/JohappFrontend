@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="Style.css">
-    ::-webkit-scrollbar {
-        width: 10px;
-      }
 </head>
+
 <body>
     <div id="menu">
         <ul class="menu-list">
@@ -26,27 +25,32 @@
                 <a href="Homepage.html" class="menu-link">Johannas Budget</a>
             </li>
     </div>
-    <div id="content">
-        <h1 class="Header">History</h1>
-        <div >
-            <table class="divTable">
-                <thead>
+    <div id="container">
+        <div id="content1">
+            <h1 class="Header">History</h1>
+            <button type="submit" id="historyBtn" class="submit-btn">Get history</button>
+            <div id="content3">
+                <table class="divTable">
+                    <thead>
 
-                <tr>
-                  <th>Name</th>
-                  <th>Price</th>
-                  <th>Category</th>
-                  <th>Date</th>
+                        <tr>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Category</th>
+                            <th>Date</th>
 
-                </tr>
+                        </tr>
 
-                </thead>
-                <tbody class="history-list">
+                    </thead>
+                    <tbody class="history-list">
+                        
+                    </tbody>
 
-                </tbody>
-
-              </table>
+                </table>
+            </div>
         </div>
     </div>
+    <script src="History.js"></script>
 </body>
+
 </html>
