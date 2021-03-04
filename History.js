@@ -2,20 +2,20 @@ let historyList = document.querySelector('.history-list')
 
 historyBtn.onclick = (e) => {
     e.preventDefault();
-    clearTable()
     fetch('https://localhost:44399/Expenses', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
         }
     }).then(repsonse => repsonse.json())
-        .then(data => {
-            console.log(data)
-            let rows = data.map(x => createExpenseRow(x))
-            rows.forEach(item => {
-                historyList.appendChild(item)
-            })
+    .then(data => {
+        console.log(data)
+        let rows = data.map(x => createExpenseRow(x))
+        rows.forEach(item => {
+            historyList.appendChild(item)
         })
+    })
+    clearTable()
 }
 
 function addCellToRow(data, tr) {
