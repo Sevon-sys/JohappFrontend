@@ -44,6 +44,7 @@ function clearTable() {
         .forEach(x => x.remove())
 }
 
+// Pågående projekt----------------------------------
 function convertDate(d) {
     var str = d.split("/", 1)[0].trim()
     var p = str.split("-")
