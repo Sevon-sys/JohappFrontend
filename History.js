@@ -27,7 +27,10 @@ function createExpenseRow(data) {
     const tr = document.createElement('tr')
     addCellToRow(data.name, tr)
     addCellToRow(data.price, tr)
-    addCellToRow(data.date, tr)
+
+    var newDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+
+    addCellToRow(newDate, tr)
     addCellToRow(data.expensesCategories, tr)
     return tr;
 }
