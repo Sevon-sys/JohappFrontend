@@ -27,11 +27,16 @@ function createExpenseRow(data) {
     const tr = document.createElement('tr')
     addCellToRow(data.name, tr)
     addCellToRow(data.price, tr)
+<<<<<<< Updated upstream
 
     var newDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 
     addCellToRow(newDate, tr)
     addCellToRow(data.expensesCategories, tr)
+=======
+    addCellToRow(data.date, tr)
+    addCellToRow(data.expensesCategories.name, tr)
+>>>>>>> Stashed changes
     return tr;
 }
 
