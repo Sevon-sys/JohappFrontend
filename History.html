@@ -28,12 +28,16 @@
     <div id="container">
         <div id="content1">
             <h1 class="Header">History</h1>
-            <button onClick="window.location.reload();">Refresh List</button>
-            <button type="button" class="sortBtn">Sort by date</button>
+            <!-- <button onClick="window.location.reload();">Refresh List</button> -->
+
+            <input type="text" id="filter" onkeyup="filterFunction()" placeholder="Search by Category">
+
+                <!-- <input type="text" id="filter" placeholder="Filter Category">
+                <button type="button" class="filterBtn">Submit</button> -->
             <div class="content2a">
                 <table id="content2">
                     <thead>
-                        <tr>
+                        <!-- <tr> -->
                             <th>Name</th>
                             <th>Price</th>
                             <th>Category</th>
