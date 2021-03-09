@@ -1,16 +1,18 @@
-html{
+  html{
     background: url(https://images.pexels.com/photos/3790639/pexels-photo-3790639.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
     font-family: verdana;
-} 
-* {
+  } 
+
+  * {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
   } 
+  
   .hero {
     height: 100%;
     width: 100%;
@@ -35,6 +37,7 @@ html{
     background-image: radial-gradient(white 70%, #a6762f) ;
     overflow: hidden;
   }
+
   .button-box {
     width: 220px;
     margin: 35px auto;
@@ -42,6 +45,7 @@ html{
     box-shadow: 0 0 10px 1px rgb(145, 143, 143);
     border-radius: 25px;
   }
+
   .toggle-btn {
     padding: 10px 30px;
     cursor: pointer;
@@ -50,6 +54,7 @@ html{
     outline: none;
     position: relative;
   }
+
   #btn {
     top: 0;
     left: 0;
@@ -60,12 +65,14 @@ html{
     border-radius: 30px;
     transition: 0.5s;
   }
+
   .input-group {
     top: 180px;
     position: absolute;
     width: 280px;
     transition: 0.5s;
   }
+
   .input-field {
     width: 100%;
     padding: 10px 0;
@@ -77,6 +84,7 @@ html{
     outline: none;
     background: transparent;
   }
+
   .submit-btn {
     width: 50%;
     padding: 10px 30px;
@@ -87,21 +95,26 @@ html{
     outline: none;
     border-radius: 30px;
   }
+
   .check-box {
     margin: 30px 10px 30px 0;
   }
+
   span {
     color:  rgb(151, 118, 96);
     font-size: 12px;
     bottom: 68px;
     position: absolute;
   }
+
   #loginForm {
     left: 50px;
   }
+
   #registerForm {
     left: 450px;
   }
+
   #menu{
       background-image: radial-gradient(white 50%, #a6762f) ;
       border: solid;
@@ -119,15 +132,18 @@ html{
       display: inline-block;
       margin: 0px 100px;
   }
+
   .menu-link{
     display: inline-block;
     text-decoration: none;
     padding: 20px;
     color:black;
   }
+
   .menu-link:hover{
     color:rgb(151, 118, 96);
   }
+
   .header{
     color:rgb(20, 20, 20);
   }
@@ -138,6 +154,7 @@ html{
     flex-direction: row;
     width: 90%;
     height: 500px;
+    position:fixed;
   }
   
   #content1{
@@ -150,6 +167,19 @@ html{
     box-shadow: 0 0 10px 1px rgb(0, 0, 0);
     margin: 10px;
   }
+
+  #content1a{
+    background-image: radial-gradient(white 60%, #a6762f) ;
+    flex: 2 1 auto;
+    border: 2px solid  rgb(151, 118, 96);
+    border-radius: 25px;
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0 0 10px 1px rgb(0, 0, 0);
+    margin: 10px;
+    overflow: auto;
+  }
+  
   
   #content2{
     background-image: radial-gradient(white 60%, #a6762f) ;
@@ -170,19 +200,13 @@ html{
     padding: 5px;
   }
 
-  .content2b{
-    display: flex;
+  #content2Table{
     justify-content: left;
     justify-content: space-around;
-    overflow: hidden;
+    overflow: auto;
     padding: 5px;
     height: 85%;
     width: 100%;
-    border: 2px solid black;
     position: static;
     border-radius: 25px;
   }
-
-  
-
-  

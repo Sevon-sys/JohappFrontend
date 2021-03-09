@@ -26,22 +26,18 @@
             </li>
     </div>
     <div id="container">
-        <div id="content1">
+        <div id="content1a">
             <h1 class="Header">History</h1>
-            <!-- <button onClick="window.location.reload();">Refresh List</button> -->
 
             <input type="text" id="filter" onkeyup="filterFunction()" placeholder="Search by Category">
-
-                <!-- <input type="text" id="filter" placeholder="Filter Category">
-                <button type="button" class="filterBtn">Submit</button> -->
-            <div class="content2a">
-                <table id="content2">
-                    <thead>
-                        <!-- <tr> -->
-                            <th>Name</th>
-                            <th>Price</th>
-                            <th>Category</th>
-                            <th>Date</th>  
+            <div class="content2b">
+                <table id="content2Table">
+                    <thead class="sortable-theme-bootstrap" data-sortable data-sortable-initialized="true" >
+                        <tr>
+                            <th data-sortable="false">Name</th>
+                            <th data-sortable="false">Price</th>
+                            <th data-sortable="false">Category</th>
+                            <th data-sorted>Date</th>  
                         </tr>
                     </thead>
                     <tbody class="history-list">
@@ -53,6 +49,7 @@
         </div>
     </div>
     <script src="History.js"></script>
+    <script src="sortable.min.js"></script>
 </body>
 
 </html>

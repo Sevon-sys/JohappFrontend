@@ -2,8 +2,6 @@ expensesForm.onsubmit = (e) => {
     e.preventDefault()
     console.log(e)
 
-    // let dateWithoutTime = .toDateString()
-
     let expensesObj = {
       name: e.target[0].value,
       price: e.target[1].value,
@@ -21,5 +19,7 @@ expensesForm.onsubmit = (e) => {
     })
     expensesForm.reset()
   }
+
+  
   
   

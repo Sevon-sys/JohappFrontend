@@ -6,7 +6,7 @@ incomeForm.onsubmit = (e) => {
     let incomeObj = {
       name: e.target[0].value,
       price: e.target[1].value,
-      price: e.target[2].value,
+      date: e.target[2].value
     }
   
     fetch('https://localhost:44399/Income', {
