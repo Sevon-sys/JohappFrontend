@@ -19,7 +19,3 @@ expensesForm.onsubmit = (e) => {
     })
     expensesForm.reset()
   }
-
-  
-  
-  

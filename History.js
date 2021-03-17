@@ -10,7 +10,6 @@ window.onload = (e) => {
         }
     }).then(repsonse => repsonse.json())
     .then(data => {
-        console.log(data)
         let rows = data.map(x => createExpenseRow(x))
         rows.forEach(item => {
             historyList.appendChild(item)
@@ -23,15 +22,12 @@ window.onload = (e) => {
       }
   }).then(repsonse => repsonse.json())
   .then(data1 => {
-      console.log(data1)
       let rows = data1.map(x => createExpenseRow1(x))
       rows.forEach(item => {
           historyList.appendChild(item)
       })
     })
 }
-
-
 
 function filterFunction() {
     let input, filter, table, tr, td, i, txtValue;  
