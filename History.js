@@ -58,7 +58,7 @@ function createExpenseRow(data) {
     addCellToRow(data.name, tr)
     addCellToRow('-'+data.price, tr)
     addCellToRow(data.expensesCategories.name, tr)
-    addCellToRow(data.date, tr)
+    addCellToRow(data.date.split('T')[0], tr)
     return tr;
 }
 
@@ -72,6 +72,6 @@ function createExpenseRow1(data1) {
   addCellToRow1(data1.name, tr)
   addCellToRow1(data1.price, tr)
   addCellToRow1('', tr)
-  addCellToRow1(data1.date, tr)
+  addCellToRow1(data1.date.split('T')[0], tr)
   return tr;
 }
