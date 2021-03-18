@@ -1,3 +1,4 @@
+
 let historyList = document.querySelector('.history-list')
 
 
@@ -75,3 +76,23 @@ function createExpenseRow1(data1) {
   addCellToRow1(data1.date, tr)
   return tr;
 }
+
+var picker = new Lightpick({
+  field: document.getElementById('demo-7'),
+  singleDate: false,
+  selectForward: true,
+  onSelect: function(start, end){
+      var str = '';
+      str += start ? start.format('Do MMMM YYYY') + ' to ' : '';
+      str += end ? end.format('Do MMMM YYYY') : '...';
+      document.getElementById('result-7').innerHTML = str;
+  }
+});
+
+// new Litepicker({
+//   element: document.getElementById('datepicker'),
+//   element: document.getElementById('start-date'),
+//   elementEnd: document.getElementById('end-date'),
+//   singleMode: false,
+//   allowRepick: true,
+// })
