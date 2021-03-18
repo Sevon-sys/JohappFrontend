@@ -26,30 +26,36 @@
             </li>
     </div>
     <div id="container">
-        <div id="content1a">
-            <h1 class="Header">History</h1>
-
-            <input type="text" id="filter" onkeyup="filterFunction()" placeholder="Search by Category">
-            <div class="content2b">
+        <div class="contentHistory">
+                <h1 class="Header">History</h1>
+                <input type="text" id="filter" onkeyup="filterFunction()" placeholder="Search by Category">
                 <table id="content2Table">
-                    <thead class="sortable-theme-bootstrap" data-sortable data-sortable-initialized="true" >
+                    <thead class="aTable">
                         <tr>
-                            <th data-sortable="false">Name</th>
-                            <th data-sortable="false">Price</th>
-                            <th data-sortable="false">Category</th>
-                            <th data-sorted>Date</th>  
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Category</th>
+                            <th>Date</th>  
                         </tr>
                     </thead>
                     <tbody class="history-list">
                         
                     </tbody>
-
                 </table>
             </div>
-        </div>
+            <div class="contentSummary">
+                <h1>Summary</h1>
+                <input type="month" id="Average" placeholder="Average by month">
+                <table id="content2Table">
+                    <thead class="secondTable">
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Category</th>
+                        <th>Date</th>
+                    </thead>
+                </table>
+            </div>
     </div>
     <script src="History.js"></script>
-    <script src="sortable.min.js"></script>
 </body>
-
 </html>

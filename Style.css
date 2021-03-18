@@ -171,6 +171,7 @@
   #content1a{
     background-image: radial-gradient(white 60%, #a6762f) ;
     flex: 2 1 auto;
+    flex-direction: row;
     border: 2px solid  rgb(151, 118, 96);
     border-radius: 25px;
     text-align: center;
@@ -209,4 +210,26 @@
     width: 100%;
     position: static;
     border-radius: 25px;
+  }
+
+  .contentHistory{
+    background-image: radial-gradient(white 60%, #a6762f) ;
+    flex: 2 1 auto;
+    border: 2px solid  rgb(151, 118, 96);
+    border-radius: 25px;
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0 0 10px 1px rgb(0, 0, 0);
+    margin: 10px;
+  }
+
+  .contentSummary{
+    background-image: radial-gradient(white 60%, #a6762f) ;
+    flex: 1 1 auto;
+    border: 2px solid  rgb(151, 118, 96);
+    border-radius: 25px;
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0 0 10px 1px rgb(0, 0, 0);
+    margin: 10px;
   }
