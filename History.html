@@ -47,12 +47,12 @@
             <div class="contentSummary">
                 <h1>Summary</h1>
                 <p id="datePicker">&nbsp;</p>
-                <form id="summeryForm">
+                <form id="summaryForm">
                     <input type="date" id="fromDate" value=""/>
                     <input type="date" id="toDate" value="">
-                    <button type="submit" class="summeryButton">Submit</button>
+                    <button type="submit" onclick="searchDate()" class="summaryButton">Submit</button>
                 </form>
-                <table id="content2Table">
+                <table id="2Table">
                     <thead class="secondTable">
                         <tr>
                             <th>Name</th>
@@ -61,9 +61,12 @@
                             <th>Date</th>
                         </tr>
                     </thead>
-                    <tbody class="summery-list">
-
+                    <tbody class="summary-list">
                     </tbody>
+                    <tr>
+                        <td>SUM: </td>
+                        <td id="sum"></td>
+                    </tr>
                 </table>
             </div>
     </div>

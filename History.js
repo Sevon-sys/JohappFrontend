@@ -1,8 +1,8 @@
 let historyList = document.querySelector('.history-list')
-let summeryList = document.querySelector('.summery-list')
+let summeryList = document.querySelector('.summary-list')
 let fromDate = document.querySelector('#fromDate')
 let toDate = document.querySelector('#toDate')
-let summeryForm = document.querySelector('#summeryForm')
+let summeryForm = document.querySelector('#summaryForm')
 
 
 
@@ -31,8 +31,20 @@ window.onload = (e) => {
       rows.forEach(item => {
         historyList.appendChild(item)
       })
+      // sum()
     })
 }
+
+// function sum() {
+//   let rows = document.querySelectorAll("2Table tr");
+//   let sum = 0;
+//   for (let i = 0; i < rows.length-1; i++) {
+//       sum += Number(rows[i].textContent);
+//   }
+
+//   document.getElementById('sum').textContent = sum;
+//   return sum
+// }
 
 function filterFunction() {
   let input, filter, table, tr, td, i, txtValue;
@@ -80,53 +92,67 @@ function createExpenseRow1(data1) {
   addCellToRow1(data1.date.split('T')[0], tr)
   return tr;
 }
-summeryForm.onsubmit = (e) => {
-  e.preventDefault()
-    fromDate = e.target[0].value,
-    toDate = e.target[1].value
-  console.log(fromDate + " - " + toDate)
 
-  // return data.date >= startDate && data.date <= endDate
-  // var result = data.filter(function (data) {
-  // })
+summaryForm.onsubmit = (e) => {
+  e.preventDefault()
+  clearTable()
+  // fromDate = e.target[0].value,
+  // toDate = e.target[1].value
+  
   fetch('https://localhost:44399/Expenses', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
     }
   }).then(repsonse => repsonse.json())
-    // .then(data => {
-    //   data.date.split('T')[0]
-    // })
-    .then(data => {
-    data.forEach(e => e.date >= fromDate && e.date <= toDate)
-      {
-          let rows = data.map(x => createExpenseRow(x))
-          rows.forEach(item => {
-            summeryList.appendChild(item)
-          })
-      }
-    })
+  .then(data => {
+    // data.forEach(e => e.date >= fromDate && e.date <= toDate)
+    // {
+      let rows = data.map(x => createExpenseRow(x))
+      rows.forEach(item => {
+        summeryList.appendChild(item)
+      })
+    // }
+  })
 }
 
-function filterFunction() {
-  let input1, input2, filter, table, tr, td, i, txtValue;
-  input1 = document.getElementById('fromDate');
-  input2 = document.getElementById('toDate');
-  table = document.getElementById('content2Table');
-  tr = table.getElementsByTagName('tr');
+// -------------- WORK IN PROGRESS ---------------
+function searchDate() {
+  var input_startDate, input_stopDate, table, tr, i;
+
+  // get the values and convert to date
+  input_startDate = new Date(document.getElementById("fromDate").value)
+  input_stopDate = new Date(document.getElementById("toDate").value)
+
+  table = document.getElementById("2Table")
+  tr = table.getElementsByTagName("tr")
+  console.log(input_startDate)
+  console.log(input_stopDate)
   for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName('td')[3];
-    if (td) {
-      txtValue = td.textContent;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = '';
+    // you need to get the text and convert to date
+    let td_date = new Date(tr[i].getElementsByTagName("td")[3])
+    console.log(td_date)                                                // <----- Invalid date från databasen..
+    // now you can compare dates correctly
+    if (td_date) {
+      if (td_date >= input_startDate && td_date <= input_stopDate) {
+        // show the row by setting the display property
+        tr[i].style.display = 'tr'
       } else {
-        tr[i].style.display = 'none';
+        // hide the row by setting the display property
+        tr[i].style.display = 'none'
       }
     }
   }
 }
+//-----------------------------------------------------
+
+// Av någon anledning så Clearas 'th' och allt annat i tabellen när man kör searchDate().
+function clearTable() {
+  document.querySelectorAll('.summary-list tr')
+    .forEach(x => x.remove())
+}
+
+
 
 // var picker = new Lightpick({
 //   field: document.getElementById('demo-7'),
@@ -149,7 +175,7 @@ function filterFunction() {
 // })
 
 // function splitDate(date) {
-  
+
 //   return date
 // }
 // var picker = new Lightpick({
