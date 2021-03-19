@@ -214,7 +214,7 @@
 
   .contentHistory{
     background-image: radial-gradient(white 60%, #a6762f) ;
-    flex: 2 1 auto;
+    flex: 4 1 auto;
     border: 2px solid  rgb(151, 118, 96);
     border-radius: 25px;
     text-align: center;
