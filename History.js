@@ -130,8 +130,8 @@ function searchDate() {
   console.log(input_stopDate)
   for (i = 0; i < tr.length; i++) {
     // you need to get the text and convert to date
-    let td_date = new Date(tr[i].getElementsByTagName("td")[3])
-    console.log(td_date)                                                // <----- Invalid date från databasen..
+    let td_date = new Date(tr[i].getElementsByTagName("td")[3].textContent) //  <----- Felmeddelande på textContent
+    console.log(td_date)                                                //      <----- Invalid date från databasen utan .textContent
     // now you can compare dates correctly
     if (td_date) {
       if (td_date >= input_startDate && td_date <= input_stopDate) {
