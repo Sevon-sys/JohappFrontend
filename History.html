@@ -28,7 +28,7 @@
     </div>
     <div id="container">
         <div class="contentHistory">
-                <h1 class="Header">History</h1>
+            <h1 class="Header">History</h1>
                 <input type="text" id="filter" onkeyup="filterFunction()" placeholder="Search by Category">
                 <table id="content2Table">
                     <thead class="aTable">
@@ -50,6 +50,13 @@
                 <form id="summaryForm">
                     <input type="date" id="fromDate" value=""/>
                     <input type="date" id="toDate" value="">
+                    <div class="selectCategory">
+                        <select name="category" id="selectCategoryId" placeholder="Select Category">
+                            <div class="optionClass">
+                                <option value="X">Choose a category</option>
+                            </div>
+                        </select>
+                    </div>
                     <button type="submit" onclick="searchDate()" class="summaryButton">Submit</button>
                 </form>
                 <table id="2Table">

@@ -13,26 +13,43 @@ window.onload = (e) => {
     headers: {
       'Content-Type': 'application/json'
     }
-  }).then(repsonse => repsonse.json())
+  }).then(resp => resp.json())
     .then(data => {
       let rows = data.map(x => createExpenseRow(x))
       rows.forEach(item => {
         historyList.appendChild(item)
       })
-    })
+  })
+
   fetch('https://localhost:44399/Income', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
     }
-  }).then(repsonse => repsonse.json())
-    .then(data1 => {
-      let rows = data1.map(x => createExpenseRow1(x))
+  }).then(resp => resp.json())
+    .then(data => {
+      let rows = data.map(x => createExpenseRow1(x))
       rows.forEach(item => {
         historyList.appendChild(item)
       })
       // sum()
-    })
+  })
+
+  fetch('https://localhost:44399/ExpensesCategories', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+    }).then(resp => resp.json())
+    .then(data => {
+      data.forEach(category => {
+        let selectCategory = document.querySelector('#selectCategoryId')
+        let option = document.createElement('option')
+        option.text = category.name
+        console.log(option)
+        selectCategory.add(option)
+      });
+  })
 }
 
 // function sum() {
