@@ -43,20 +43,19 @@ window.onload = (e) => {
     headers: {
       'Content-Type': 'application/json'
     }
-    }).then(resp => resp.json())
-    .then(data => {
-      data.forEach(category => {
+  }).then(resp => resp.json())
+  .then(data => {
+    data.forEach(category => {
         selectCategory = document.querySelector('#selectCategoryId')
         option = document.createElement('option')
         option.text = category.name
         selectCategory.add(option)
-        // let x = document.getElementById('selectCategoryId').selectedIndex;
-        // console.log(document.getElementsByClassName("optionClass")[x].text)
+        option.setAttribute('class', 'optionClass')
+        let x = document.getElementById('selectCategoryId').selectedIndex;
+        console.log(document.getElementsByClassName("optionClass")[x].text)
       });
     })
   }
-let options = document.getElementsByTagName('option')
-console.log(options.innerText())
 
 // function sum() {
 //   let rows = document.querySelectorAll("2Table tr");
