@@ -46,7 +46,6 @@ window.onload = (e) => {
         let selectCategory = document.querySelector('#selectCategoryId')
         let option = document.createElement('option')
         option.text = category.name
-        console.log(option)
         selectCategory.add(option)
       });
   })
@@ -62,6 +61,61 @@ window.onload = (e) => {
 //   document.getElementById('sum').textContent = sum;
 //   return sum
 // }
+
+
+function addCellToRow(data, tr) {
+  const cell = tr.insertCell()
+  cell.textContent = data
+}
+
+function createExpenseRow(data) {
+  const tr = document.createElement('tr')
+  addCellToRow(data.name, tr)
+  addCellToRow('-' + data.price, tr)
+  addCellToRow(data.expensesCategories.name, tr)
+  addCellToRow(data.date.split('T')[0], tr)
+  return tr;
+}
+
+function createExpenseRow1(data1) {
+  const tr = document.createElement('tr')
+  addCellToRow(data1.name, tr)
+  addCellToRow(data1.price, tr)
+  addCellToRow('', tr)
+  addCellToRow(data1.date.split('T')[0], tr)
+  return tr;
+}
+
+function createExpenseRow2(data1) {
+  const tr = document.createElement('tr')
+  addCellToRow(data1.name, tr)
+  addCellToRow(data1.price, tr)
+  addCellToRow(data1.date.split('T')[0], tr)
+  return tr;
+}
+
+summaryForm.onsubmit = (e) => {
+  e.preventDefault()
+  clearTable()
+  // fromDate = e.target[0].value,
+  // toDate = e.target[1].value
+  
+  fetch('https://localhost:44399/Expenses', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }).then(repsonse => repsonse.json())
+  .then(data => {
+    // data.forEach(e => e.date >= fromDate && e.date <= toDate)
+    // {
+      let rows = data.map(x => createExpenseRow2(x))
+      rows.forEach(item => {
+        summeryList.appendChild(item)
+      })
+    // }
+  })
+}
 
 function filterFunction() {
   let input, filter, table, tr, td, i, txtValue;
@@ -82,88 +136,51 @@ function filterFunction() {
   }
 }
 
-function addCellToRow(data, tr) {
-  const cell = tr.insertCell()
-  cell.textContent = data
-}
-
-function createExpenseRow(data) {
-  const tr = document.createElement('tr')
-  addCellToRow(data.name, tr)
-  addCellToRow('-' + data.price, tr)
-  addCellToRow(data.expensesCategories.name, tr)
-  addCellToRow(data.date.split('T')[0], tr)
-  return tr;
-}
-
-function addCellToRow1(data1, tr) {
-  const cell = tr.insertCell()
-  cell.textContent = data1
-}
-
-function createExpenseRow1(data1) {
-  const tr = document.createElement('tr')
-  addCellToRow1(data1.name, tr)
-  addCellToRow1(data1.price, tr)
-  addCellToRow1('', tr)
-  addCellToRow1(data1.date.split('T')[0], tr)
-  return tr;
-}
-
-summaryForm.onsubmit = (e) => {
-  e.preventDefault()
-  clearTable()
-  // fromDate = e.target[0].value,
-  // toDate = e.target[1].value
-  
-  fetch('https://localhost:44399/Expenses', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  }).then(repsonse => repsonse.json())
-  .then(data => {
-    // data.forEach(e => e.date >= fromDate && e.date <= toDate)
-    // {
-      let rows = data.map(x => createExpenseRow(x))
-      rows.forEach(item => {
-        summeryList.appendChild(item)
-      })
-    // }
-  })
-}
-
 // -------------- WORK IN PROGRESS ---------------
 function searchDate() {
-  var input_startDate, input_stopDate, table, tr, i;
+  let input_startDate, input_stopDate, td_date, table, tr, i;
 
   // get the values and convert to date
-  input_startDate = new Date(document.getElementById("fromDate").value)
-  input_stopDate = new Date(document.getElementById("toDate").value)
+  input_startDate = document.getElementById('fromDate').value
+  input_stopDate = document.getElementById('toDate').value
 
-  table = document.getElementById("2Table")
-  tr = table.getElementsByTagName("tr")
-  console.log(input_startDate)
-  console.log(input_stopDate)
+  table = document.getElementById('sumTable')
+  tr = table.getElementsByTagName('tr')
+  // console.log(input_startDate)
+  // console.log(input_stopDate)
+
   for (i = 0; i < tr.length; i++) {
     // you need to get the text and convert to date
-    let td_date = new Date(tr[i].getElementsByTagName("td")[3].textContent) //  <----- Felmeddelande på textContent
-    console.log(td_date)                                                //      <----- Invalid date från databasen utan .textContent
+    td_date = tr[i].getElementsByTagName('td')[2].textContent            //  <----- Felmeddelande på textContent
+    // console.log(td_date)                                                      //  <----- Invalid date från databasen utan .textContent
+    // felmeddelandet på textContent är dels pga att det redan finns en td i tabellen, "<td>SUM: </td> <td id="sum"></td>
+    // den här raden har bara två celler, så när du säger "let td_date = tr[i].getElementsByTagName('td')[3].textContent" så försöker den hitta en tredje cell som inte finns
+    
+    let start = new Date(input_startDate).toISOString()
+    let stop = new Date(input_stopDate).toISOString()
+    let date = new Date(td_date).toISOString()
+    console.log(start, stop, date)
+    // console.log(start, stop)
+
     // now you can compare dates correctly
-    if (td_date) {
-      if (td_date >= input_startDate && td_date <= input_stopDate) {
-        // show the row by setting the display property
-        tr[i].style.display = 'tr'
-      } else {
-        // hide the row by setting the display property
-        tr[i].style.display = 'none'
-      }
-    }
+    if(td_date){
+      if (date >= start && date <= stop) {
+      // if (new Date(td_date).getFullYear() >= new Date(input_startDate).getFullYear() && new Date(td_date).getFullYear() <= new Date(input_stopDate).getFullYear()) {
+          // show the row by setting the display property
+          // console.log(tr)
+          tr[i].style.display = 'tr'
+      }else {
+          // hide the row by setting the display property
+          tr[i].style.display = 'none'
+       }
+    } 
   }
 }
+
 //-----------------------------------------------------
 
 // Av någon anledning så Clearas 'th' och allt annat i tabellen när man kör searchDate().
+// För 'th' ligger i en 'tr'
 function clearTable() {
   document.querySelectorAll('.summary-list tr')
     .forEach(x => x.remove())

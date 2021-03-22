@@ -48,8 +48,8 @@
                 <h1>Summary</h1>
                 <p id="datePicker">&nbsp;</p>
                 <form id="summaryForm">
-                    <input type="date" id="fromDate" value=""/>
-                    <input type="date" id="toDate" value="">
+                    <input type="month" id="fromDate" value=""/>
+                    <input type="month" id="toDate" value="">
                     <div class="selectCategory">
                         <select name="category" id="selectCategoryId" placeholder="Select Category">
                             <div class="optionClass">
@@ -59,21 +59,20 @@
                     </div>
                     <button type="submit" onclick="searchDate()" class="summaryButton">Submit</button>
                 </form>
-                <table id="2Table">
                     <thead class="secondTable">
                         <tr>
                             <th>Name</th>
                             <th>Price</th>
-                            <th>Category</th>
                             <th>Date</th>
                         </tr>
                     </thead>
+                <table id="sumTable">
                     <tbody class="summary-list">
                     </tbody>
-                    <tr>
+                    <!-- <tr id="summary">
                         <td>SUM: </td>
                         <td id="sum"></td>
-                    </tr>
+                    </tr> -->
                 </table>
             </div>
     </div>
