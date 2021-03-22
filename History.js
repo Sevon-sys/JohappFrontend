@@ -15,7 +15,7 @@ window.onload = (e) => {
     }
   }).then(resp => resp.json())
     .then(data => {
-      let rows = data.map(x => createExpenseRow(x))
+      let rows = data.map(x => populateHistoryTableExpenses(x))
       rows.forEach(item => {
         historyList.appendChild(item)
       })
@@ -28,7 +28,7 @@ window.onload = (e) => {
     }
   }).then(resp => resp.json())
     .then(data => {
-      let rows = data.map(x => createExpenseRow1(x))
+      let rows = data.map(x => populateHistoryTableIncome(x))
       rows.forEach(item => {
         historyList.appendChild(item)
       })
@@ -68,7 +68,7 @@ function addCellToRow(data, tr) {
   cell.textContent = data
 }
 
-function createExpenseRow(data) {
+function populateHistoryTableExpenses(data) {
   const tr = document.createElement('tr')
   addCellToRow(data.name, tr)
   addCellToRow('-' + data.price, tr)
@@ -77,7 +77,7 @@ function createExpenseRow(data) {
   return tr;
 }
 
-function createExpenseRow1(data1) {
+function populateHistoryTableIncome(data1) {
   const tr = document.createElement('tr')
   addCellToRow(data1.name, tr)
   addCellToRow(data1.price, tr)
@@ -164,7 +164,7 @@ function searchDate() {
 
     // now you can compare dates correctly
     if(td_date){
-      if (date >= start && date <= stop) {
+      if (date.getFullYear() >= start.getFullYear() && date.getFullYear() <= stop.getFullYear()) {
       // if (new Date(td_date).getFullYear() >= new Date(input_startDate).getFullYear() && new Date(td_date).getFullYear() <= new Date(input_stopDate).getFullYear()) {
           // show the row by setting the display property
           // console.log(tr)
