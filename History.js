@@ -122,13 +122,8 @@ summaryForm.onsubmit = (e) => {
         summeryList.appendChild(item)
       })
     // }
-<<<<<<< HEAD
-      searchDate()
-      // console.log(ExpensesSum())
-=======
     searchDate()
     // console.log(data)
->>>>>>> 6798c5467fb25124b64cc351b7944ba0a3952482
   })
 }
 
@@ -181,15 +176,6 @@ function searchDate() {
   for (i = 0; i < tr.length; i++) {
     // you need to get the text and convert to date
     td_date = tr[i].getElementsByTagName('td')[2].textContent            //  <----- Felmeddelande på textContent
-<<<<<<< HEAD
-    // console.log(td_date[3])                                                      //  <----- Invalid date från databasen utan .textContent
-    // felmeddelandet på textContent är dels pga att det redan finns en td i tabellen, "<td>SUM: </td> <td id="sum"></td>
-    // den här raden har bara två celler, så när du säger "let td_date = tr[i].getElementsByTagName('td')[3].textContent" så försöker den hitta en tredje cell som inte finns
-    
-    let start = new Date(input_startDate).toISOString()
-    let stop = new Date(input_stopDate).toISOString()
-    let date = new Date(td_date).toISOString()
-=======
     // console.log(td_date)                                                      //  <----- Invalid date från databasen utan .textContent
     // felmeddelandet på textContent är dels pga att det redan finns en td i tabellen, "<td>SUM: </td> <td id="sum"></td>
     // den här raden har bara två celler, så när du säger "let td_date = tr[i].getElementsByTagName('td')[3].textContent" så försöker den hitta en tredje cell som inte finns
@@ -200,7 +186,6 @@ function searchDate() {
     let stopMonth = new Date(input_stopDate).getMonth()
     let dateYear = new Date(td_date).getFullYear()
     let dateMonth = new Date(td_date).getMonth()
->>>>>>> 6798c5467fb25124b64cc351b7944ba0a3952482
     // console.log(start, stop, date)
     // console.log(start, stop)
     
