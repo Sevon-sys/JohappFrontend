@@ -8,7 +8,7 @@ let summeryForm = document.querySelector('#summaryForm')
 
 window.onload = (e) => {
   e.preventDefault();
-  clearList()
+  // clearList()
   fetch('https://localhost:44399/Expenses', {
     method: 'GET',
     headers: {
@@ -33,6 +33,8 @@ window.onload = (e) => {
       rows.forEach(item => {
         historyList.appendChild(item)
       })
+      // ExpensesSum()
+
       // sum()
   })
 
@@ -117,10 +119,24 @@ summaryForm.onsubmit = (e) => {
         summeryList.appendChild(item)
       })
     // }
-    searchDate()
-    console.log(data)
+      searchDate()
+      // console.log(ExpensesSum())
   })
 }
+
+// function ExpensesSum() {
+//   let expense, tr, sum, table
+//   sum = document.querySelector('.sum')
+//   table = document.getElementById('content2Table');
+//   tr = table.getElementsByTagName('tr');
+//   for (i = 0; i < tr.length; i++) {
+//     expense = tr[i].getElementsByTagName('td')[1];
+//     sum = expense + sum
+//     console.log(expense)
+//     console.log(sum)
+//   }
+//   return sum
+// }
 
 function filterFunction() {
   let input, filter, table, tr, td, i, txtValue;
@@ -143,7 +159,7 @@ function filterFunction() {
 
 // -------------- WORK IN PROGRESS ---------------
 function searchDate() {
-  let input_startDate, input_stopDate, td_date, table, tr, i;
+  let input_startDate, input_stopDate, td_date, table, tr, td_price, summa;
 
   // get the values and convert to date
   input_startDate = document.getElementById('fromDate').value
@@ -156,15 +172,15 @@ function searchDate() {
 
   for (i = 0; i < tr.length; i++) {
     // you need to get the text and convert to date
-    td_date = tr[i].getElementsByTagName('td')[3].textContent            //  <----- Felmeddelande på textContent
+    td_date = tr[i].getElementsByTagName('td')[2].textContent            //  <----- Felmeddelande på textContent
     // console.log(td_date[3])                                                      //  <----- Invalid date från databasen utan .textContent
     // felmeddelandet på textContent är dels pga att det redan finns en td i tabellen, "<td>SUM: </td> <td id="sum"></td>
     // den här raden har bara två celler, så när du säger "let td_date = tr[i].getElementsByTagName('td')[3].textContent" så försöker den hitta en tredje cell som inte finns
     
     let start = new Date(input_startDate).toISOString()
-    let stop = new Date(input_stopDate).toISOString('yyyy-MM-30')
+    let stop = new Date(input_stopDate).toISOString()
     let date = new Date(td_date).toISOString()
-    console.log(start, stop, date)
+    // console.log(start, stop, date)
     // console.log(start, stop)
 
     // now you can compare dates correctly
@@ -173,14 +189,37 @@ function searchDate() {
       // if (new Date(td_date).getFullYear() >= new Date(input_startDate).getFullYear() && new Date(td_date).getFullYear() <= new Date(input_stopDate).getFullYear()) {
           // show the row by setting the display property
           // console.log(tr)
+          td_price = tr[i].getElementsByTagName('td')[1].innerHTML
+          // td_price.price
           tr[i].style.display = 'tr'
-      }else {
+          // sum = parseInt(td_price + sum)
+          td_price = parseInt(td_price)
+          summa += td_price 
+          // summa = parseInt(summa)
+          console.log(typeof summa)
+          console.log(summa)
+        } else {
           // hide the row by setting the display property
           tr[i].style.display = 'none'
-       }
+        }
     } 
   }
 }
+
+// function expenseSum() {
+//   let table, tr, td_price, sum
+//   let sumFoot = document.querySelector('.sum')
+//   table = document.getElementById('sumTable')
+//   tr = table.getElementsByTagName('tr')
+
+//   for (i = 0; i < tr.length; i++) {
+//     td_price = tr[i].getElementsByTagName('td')[1]
+//     if (td_price){
+//       sum = td_price + sum
+//     }
+//   }
+//   console.log(sum)
+// }
 
 //-----------------------------------------------------
 
