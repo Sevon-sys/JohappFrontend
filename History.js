@@ -29,12 +29,8 @@ window.onload = (e) => {
     }
   }).then(resp => resp.json())
     .then(data => {
-<<<<<<< HEAD
       let rows = data.map(x => populateHistoryTableIncome(x))
-=======
-      let rows = data.map(x => createIncomeRow(x))
->>>>>>> e0001aad3a2b4a4b61c8dfce93ed145cb2ad6bdb
-      rows.forEach(item => {
+            rows.forEach(item => {
         historyList.appendChild(item)
       })
       // sum()
@@ -83,11 +79,7 @@ function populateHistoryTableExpenses(data) {
   return tr;
 }
 
-<<<<<<< HEAD
 function populateHistoryTableIncome(data1) {
-=======
-function createIncomeRow(data1) {
->>>>>>> e0001aad3a2b4a4b61c8dfce93ed145cb2ad6bdb
   const tr = document.createElement('tr')
   addCellToRow(data1.name, tr)
   addCellToRow(data1.price, tr)
@@ -100,7 +92,6 @@ function createExpenseRow2(data1) {
   const tr = document.createElement('tr')
   addCellToRow(data1.name, tr)
   addCellToRow(data1.price, tr)
-  addCellToRow(data1.expensesCategories.name, tr)
   addCellToRow(data1.date.split('T')[0], tr)
   return tr;
 }
@@ -110,7 +101,7 @@ summaryForm.onsubmit = (e) => {
   clearTable()
   // fromDate = e.target[0].value,
   // toDate = e.target[1].value
-
+  
   fetch('https://localhost:44399/Expenses', {
     method: 'GET',
     headers: {
@@ -164,17 +155,17 @@ function searchDate() {
 
   for (i = 0; i < tr.length; i++) {
     // you need to get the text and convert to date
-    td_date = tr[i].getElementsByTagName('td')[3].textContent            //  <----- Felmeddelande på textContent
-    // console.log(td_date[3])                                                      //  <----- Invalid date från databasen utan .textContent
+    td_date = tr[i].getElementsByTagName('td')[2].textContent            //  <----- Felmeddelande på textContent
+    // console.log(td_date)                                                      //  <----- Invalid date från databasen utan .textContent
     // felmeddelandet på textContent är dels pga att det redan finns en td i tabellen, "<td>SUM: </td> <td id="sum"></td>
     // den här raden har bara två celler, så när du säger "let td_date = tr[i].getElementsByTagName('td')[3].textContent" så försöker den hitta en tredje cell som inte finns
     
     let start = new Date(input_startDate).toISOString()
-    let stop = new Date(input_stopDate).toISOString('yyyy-MM-30')
+    let stop = new Date(input_stopDate).toISOString()
     let date = new Date(td_date).toISOString()
     console.log(start, stop, date)
     // console.log(start, stop)
-
+    
     // now you can compare dates correctly
     if(td_date){
       if (date.getFullYear() >= start.getFullYear() && date.getFullYear() <= stop.getFullYear()) {
@@ -273,3 +264,4 @@ function clearList() {
 //   singleMode: false,
 //   allowRepick: true,
 // })
+
