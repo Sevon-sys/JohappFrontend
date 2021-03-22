@@ -3,12 +3,14 @@ let summeryList = document.querySelector('.summary-list')
 let fromDate = document.querySelector('#fromDate')
 let toDate = document.querySelector('#toDate')
 let summeryForm = document.querySelector('#summaryForm')
+let selectCategory, option;
+let optionClass = document.querySelector('.optionClass')
 
 
 
 window.onload = (e) => {
   e.preventDefault();
-  clearList()
+  // clearList()
   fetch('https://localhost:44399/Expenses', {
     method: 'GET',
     headers: {
@@ -44,14 +46,17 @@ window.onload = (e) => {
     }).then(resp => resp.json())
     .then(data => {
       data.forEach(category => {
-        let selectCategory = document.querySelector('#selectCategoryId')
-        let option = document.createElement('option')
+        selectCategory = document.querySelector('#selectCategoryId')
+        option = document.createElement('option')
         option.text = category.name
         selectCategory.add(option)
+        // let x = document.getElementById('selectCategoryId').selectedIndex;
+        // console.log(document.getElementsByClassName("optionClass")[x].text)
       });
-      console.log(data)
-  })
-}
+    })
+  }
+let options = document.getElementsByTagName('option')
+console.log(options.innerText())
 
 // function sum() {
 //   let rows = document.querySelectorAll("2Table tr");
@@ -63,7 +68,6 @@ window.onload = (e) => {
 //   document.getElementById('sum').textContent = sum;
 //   return sum
 // }
-
 
 function addCellToRow(data, tr) {
   const cell = tr.insertCell()
@@ -88,7 +92,7 @@ function populateHistoryTableIncome(data1) {
   return tr;
 }
 
-function createExpenseRow2(data1) {
+function populateSummaryTable(data1) {
   const tr = document.createElement('tr')
   addCellToRow(data1.name, tr)
   addCellToRow(data1.price, tr)
@@ -109,15 +113,16 @@ summaryForm.onsubmit = (e) => {
     }
   }).then(repsonse => repsonse.json())
   .then(data => {
+    // data.forEach(e.expensesCategories.name)
     // data.forEach(e => e.date >= fromDate && e.date <= toDate)
     // {
-      let rows = data.map(x => createExpenseRow2(x))
+      let rows = data.map(x => populateSummaryTable(x))
       rows.forEach(item => {
         summeryList.appendChild(item)
       })
     // }
     searchDate()
-    console.log(data)
+    // console.log(data)
   })
 }
 
@@ -160,15 +165,21 @@ function searchDate() {
     // felmeddelandet på textContent är dels pga att det redan finns en td i tabellen, "<td>SUM: </td> <td id="sum"></td>
     // den här raden har bara två celler, så när du säger "let td_date = tr[i].getElementsByTagName('td')[3].textContent" så försöker den hitta en tredje cell som inte finns
     
-    let start = new Date(input_startDate).toISOString()
-    let stop = new Date(input_stopDate).toISOString()
-    let date = new Date(td_date).toISOString()
-    console.log(start, stop, date)
+    let startYear = new Date(input_startDate).getFullYear()
+    let startMonth = new Date(input_startDate).getMonth()
+    let stopYear = new Date(input_stopDate).getFullYear()
+    let stopMonth = new Date(input_stopDate).getMonth()
+    let dateYear = new Date(td_date).getFullYear()
+    let dateMonth = new Date(td_date).getMonth()
+    // console.log(start, stop, date)
     // console.log(start, stop)
     
     // now you can compare dates correctly
     if(td_date){
-      if (date.getFullYear() >= start.getFullYear() && date.getFullYear() <= stop.getFullYear()) {
+      if (dateYear >= startYear 
+      && dateYear <= stopYear 
+      && dateMonth >= startMonth 
+      && dateMonth <= stopMonth) {
       // if (new Date(td_date).getFullYear() >= new Date(input_startDate).getFullYear() && new Date(td_date).getFullYear() <= new Date(input_stopDate).getFullYear()) {
           // show the row by setting the display property
           // console.log(tr)
@@ -194,74 +205,3 @@ function clearList() {
   document.querySelectorAll('.selectCategory option')
     .forEach(x => x.remove())
 }
-
-
-// var picker = new Lightpick({
-//   field: document.getElementById('demo-7'),
-//   singleDate: false,
-//   selectForward: true,
-//   onSelect: function(start, end){
-//       var str = '';
-//       str += start ? start.format('Do MMMM YYYY') + ' to ' : '';
-//       str += end ? end.format('Do MMMM YYYY') : '...';
-//       document.getElementById('result-7').innerHTML = str;
-//   }
-// });
-
-// new Litepicker({
-//   element: document.getElementById('datepicker'),
-//   element: document.getElementById('start-date'),
-//   elementEnd: document.getElementById('end-date'),
-//   singleMode: false,
-//   allowRepick: true,
-// })
-
-// function splitDate(date) {
-
-//   return date
-// }
-// var picker = new Lightpick({
-//   field: document.getElementById('datepicker'),
-//   singleDate: false,
-//   selectForward: true,
-//   onSelect: function(start, end){
-//       var str = '';
-//       str += start ? start.format('Do MMMM YYYY') + ' to ' : '';
-//       str += end ? end.format('Do MMMM YYYY') : '...';
-//       document.getElementById('datePicker').innerHTML = str;
-//   }
-// });
-// new Lightpick({
-//   field: document.getElementById('demo-7'),
-//   singleDate: false,
-//   selectForward: true,
-//   onSelect: function(start, end){
-//       document.getElementById('result-7').innerHTML = rangeText(start, end);
-//   }
-// });
-
-// var fromDate;
-//         document.querySelector('#fromDate').addEventListener('change', function(){
-//             fromDate = document.querySelector(this).value;
-//             document.querySelector('#toDate').prop('min', function(){
-//                 return fromDate;
-//             })
-//         });
-//         var toDate;
-//         document.querySelector('#toDate').addEventListener('change', function(){
-//             toDate = document.querySelector(this).value;
-//             document.querySelector('#fromDate').prop('max', function(){
-//                 return toDate;
-//             })
-//         });
-
-
-
-// new Litepicker({
-//   element: document.getElementById('datepicker'),
-//   element: document.getElementById('start-date'),
-//   elementEnd: document.getElementById('end-date'),
-//   singleMode: false,
-//   allowRepick: true,
-// })
-
