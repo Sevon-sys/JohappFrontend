@@ -1,13 +1,13 @@
 let historyList = document.querySelector('.history-list')
 let summeryList = document.querySelector('.summary-list')
-let averageSummary = document.querySelector('.average')
-let totalSummary = document.querySelector('.totalSum')
+// let averageSummary = document.querySelector('.average')
+// let totalSummary = document.querySelector('.totalSum')
 let fromDate = document.querySelector('#fromDate')
 let toDate = document.querySelector('#toDate')
 let summeryForm = document.querySelector('#summaryForm')
 let selectCategory, option;
+let summarySum = document.querySelector('.sum')
 // let optionClass = document.querySelector('.optionClass')
-
 
 
 window.onload = (e) => {
@@ -21,6 +21,19 @@ window.onload = (e) => {
   }).then(resp => resp.json())
     .then(data => {
       let rows = data.map(x => populateHistoryTableExpenses(x))
+      rows.forEach(item => {
+        historyList.appendChild(item)
+      })
+  })
+
+  fetch('https://localhost:44399/RecurringExpenses', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }).then(resp => resp.json())
+    .then(data => {
+      let rows = data.map(x => populateHistoryTableRecurringExpenses(x))
       rows.forEach(item => {
         historyList.appendChild(item)
       })
@@ -84,6 +97,15 @@ function populateHistoryTableExpenses(data) {
   return tr;
 }
 
+function populateHistoryTableRecurringExpenses(data) {
+  const tr = document.createElement('tr')
+  addCellToRow(data.name, tr)
+  addCellToRow('-' + data.price, tr)
+  addCellToRow(data.recurringExpensesCategory.name, tr)
+  addCellToRow(data.date.split('T')[0], tr)
+  return tr;
+}
+
 function populateHistoryTableIncome(data1) {
   const tr = document.createElement('tr')
   addCellToRow(data1.name, tr)
@@ -98,6 +120,15 @@ function populateSummaryTable(data1) {
   addCellToRow(data1.name, tr)
   addCellToRow(data1.price, tr)
   addCellToRow(data1.date.split('T')[0], tr)
+  return tr;
+}
+
+function populateSummaryTFoot(sum, average) {
+  const tr = document.createElement('tr')
+  addCellToRow('Sum: ', tr)
+  addCellToRow(sum, tr)
+  addCellToRow('Average: ', tr)
+  addCellToRow(average, tr)
   return tr;
 }
 
@@ -193,45 +224,67 @@ function searchDate(data) {
     // stopMonth = new Date(input_stopDate).getMonth()
     let dateYear = new Date(td_date).getFullYear()
     let dateMonth = new Date(td_date).getMonth()
-
     let arr = data[i]
     let arrCategory = arr.expensesCategories.name
     // now you can compare dates correctly
     if(td_date){
       if (dateYear >= startYear 
       && dateYear <= stopYear 
-      && dateMonth >= startMonth 
-      && dateMonth <= stopMonth
       && category === arrCategory) {
-          // if (new Date(td_date).getFullYear() >= new Date(input_startDate).getFullYear() && new Date(td_date).getFullYear() <= new Date(input_stopDate).getFullYear()) {
-          // show the row by setting the display property
-          // console.log(tr)
-          td_price = tr[i].getElementsByTagName('td')[1].innerHTML
-          // td_price.price
-          tr[i].style.display = 'tr'
-          // sum = parseInt(td_price + sum)
-          td_price = parseInt(td_price)
-          sum += td_price 
-          // summa = parseInt(summa)
-        } else {
+        if (dateMonth >= startMonth 
+          && dateMonth <= stopMonth 
+          || dateMonth <= startMonth 
+          && dateMonth <= stopMonth 
+          || dateMonth <= startMonth 
+          && dateMonth <= stopMonth
+          && dateYear < stopYear) {
+            // if (new Date(td_date).getFullYear() >= new Date(input_startDate).getFullYear() && new Date(td_date).getFullYear() <= new Date(input_stopDate).getFullYear()) {
+            // show the row by setting the display property
+            // console.log(tr)
+            td_price = tr[i].getElementsByTagName('td')[1].innerHTML
+            // td_price.price
+            tr[i].style.display = 'tr'
+            // sum = parseInt(td_price + sum)
+            td_price = parseInt(td_price)
+            sum += td_price 
+            // summa = parseInt(summa)
+          }
+        }else {
           // hide the row by setting the display property
-          tr[i].style.display = 'none'
-        }
+          tr[i].style.display = 'none' 
+      }
     } 
   }
+  debugger
   let yearToMonth = (stopYear-startYear)*12;
-  console.log(yearToMonth)
+  // console.log(yearToMonth)
   let month = stopMonth-startMonth+1;
-  console.log(month)
+  // console.log(month)
   let months = yearToMonth+month;
-  console.log(months)
+  // console.log(months)
   let average = sum/months;
-  console.log(sum)
-  console.log(average)
-  totalSummary.appendChild(sum)
-  averageSummary.appendChild(average)
+  // console.log(sum)
+  // console.log(average)
+
+  // let tfoot = document.getElementsByClassName('sum')
+  // let trSummary = tfoot.getElementsByClassName('summarySum')
+  // document.getElementsByClassName('totalSum').text = sum;
+  // document.getElementsByClassName('average').value = average;
+  // let total = document.getElementsByClassName('summarySum');
+  // const sumTotal = total.insertCell()[1];
+  // sumTotal.textContent = sum;
+  // const sumAverage = sumAverage.insertCell()[3];
+  // sumAverage.textContent = average;
+  // tfoot.appendChild(sum)[1]
+  // tfoot.appendChild(average)[3]
+  // totalSummary.appendChild(sum)
+  // averageSummary.appendChild(average)
 }
 
+// function addCellToRow(data, tr) {
+//   const cell = tr.insertCell()
+//   cell.textContent = data
+// }
 
 // function expenseSum() {
 //   let table, tr, td_price, sum

@@ -39,17 +39,19 @@
             </form>
         </div>
         <div id="content2">
-            <h1>Latest purchase</h1>
-                <div class="content2a">
-                    <h3>Name</th>
-                    <h3>Price</th>
-                    <h3>Date</th>
-                    <h3>Category</th>
-                </div>
-                    <table class="content2b">
-                        <tbody class="history-list">
-                        </tbody>
-                    </table>
+            <h1 class="Header"><em>Recurring Expenses</em></h1>
+            <form id="recurringexpensesForm" class="class-form">
+                <label for="Purchase"></label>
+                <input type="text" class="input-field" placeholder="Your Purchase">
+                <br>
+                <label for="Price"></label>
+                <input type="text" class="input-field" placeholder="Purchase Price">
+                <label for="Date"></label>
+                <input type="date" class="input-field" placeholder="Date">
+                <label for="Category"></label>
+                <input type="text" class="input-field" placeholder="Category">
+                <button type="submit" class="submit-btn">Submit</button>
+            </form>
         </div>
     </div>
     <script src="Expenses.js"></script>
