@@ -6,6 +6,7 @@ let fromDate = document.querySelector('#fromDate')
 let toDate = document.querySelector('#toDate')
 let summeryForm = document.querySelector('#summaryForm')
 let selectCategory, option;
+let summum = document.querySelector('.sum')
 // let optionClass = document.querySelector('.optionClass')
 
 
@@ -24,7 +25,7 @@ window.onload = (e) => {
       rows.forEach(item => {
         historyList.appendChild(item)
       })
-  })
+    })
 
   fetch('https://localhost:44399/Income', {
     method: 'GET',
@@ -34,13 +35,13 @@ window.onload = (e) => {
   }).then(resp => resp.json())
     .then(data => {
       let rows = data.map(x => populateHistoryTableIncome(x))
-            rows.forEach(item => {
+      rows.forEach(item => {
         historyList.appendChild(item)
       })
       // ExpensesSum()
 
       // sum()
-  })
+    })
 
   fetch('https://localhost:44399/ExpensesCategories', {
     method: 'GET',
@@ -48,15 +49,15 @@ window.onload = (e) => {
       'Content-Type': 'application/json'
     }
   }).then(resp => resp.json())
-  .then(data => {
-    data.forEach(category => {
+    .then(data => {
+      data.forEach(category => {
         selectCategory = document.querySelector('#selectCategoryId')
         option = document.createElement('option')
         option.text = category.name
         selectCategory.add(option)
         option.setAttribute('class', 'optionClass')
-    });
-  })
+      });
+    })
 }
 
 // function sum() {
@@ -73,6 +74,15 @@ window.onload = (e) => {
 function addCellToRow(data, tr) {
   const cell = tr.insertCell()
   cell.textContent = data
+}
+
+function populateSumExpense(sum, average) {
+  const tr = document.createElement('tr')
+  addCellToRow('Sum:', tr)
+  addCellToRow(sum, tr)
+  addCellToRow('Average: ', tr)
+  addCellToRow(average, tr)
+  return tr
 }
 
 function populateHistoryTableExpenses(data) {
@@ -106,25 +116,25 @@ summaryForm.onsubmit = (e) => {
   clearTable()
   // fromDate = e.target[0].value,
   // toDate = e.target[1].value
-  
+
   fetch('https://localhost:44399/Expenses', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
     }
   }).then(repsonse => repsonse.json())
-  .then(data => {
-    // data.forEach(e.expensesCategories.name)
-    // data.forEach(e => e.date >= fromDate && e.date <= toDate)
-    // {
+    .then(data => {
+      // data.forEach(e.expensesCategories.name)
+      // data.forEach(e => e.date >= fromDate && e.date <= toDate)
+      // {
       let rows = data.map(x => populateSummaryTable(x))
       rows.forEach(item => {
         summeryList.appendChild(item)
       })
-    // }
-    searchDate(data)
-    // console.log(data)
-  })
+      // }
+      searchDate(data)
+      // console.log(data)
+    })
 }
 
 // function ExpensesSum() {
@@ -164,6 +174,7 @@ function filterFunction() {
 function searchDate(data) {
   let input_startDate, input_stopDate, td_date, table, tr, td_price, sum = 0;
 
+  clearTFooter()
   // get the values and convert to date
   input_startDate = document.getElementById('fromDate').value
   input_stopDate = document.getElementById('toDate').value
@@ -173,7 +184,7 @@ function searchDate(data) {
   // console.log(input_startDate)
   // console.log(input_stopDate)
   let category = document.getElementById('selectCategoryId').value;
-  
+
   let startYear = new Date(input_startDate).getFullYear()
   let startMonth = new Date(input_startDate).getMonth()
   let stopYear = new Date(input_stopDate).getFullYear()
@@ -197,41 +208,68 @@ function searchDate(data) {
     let arr = data[i]
     let arrCategory = arr.expensesCategories.name
     // now you can compare dates correctly
-    if(td_date){
-      if (dateYear >= startYear 
-      && dateYear <= stopYear 
-      && dateMonth >= startMonth 
-      && dateMonth <= stopMonth
-      && category === arrCategory) {
-          // if (new Date(td_date).getFullYear() >= new Date(input_startDate).getFullYear() && new Date(td_date).getFullYear() <= new Date(input_stopDate).getFullYear()) {
-          // show the row by setting the display property
-          // console.log(tr)
-          td_price = tr[i].getElementsByTagName('td')[1].innerHTML
-          // td_price.price
-          tr[i].style.display = 'tr'
-          // sum = parseInt(td_price + sum)
-          td_price = parseInt(td_price)
-          sum += td_price 
-          // summa = parseInt(summa)
-        } else {
-          // hide the row by setting the display property
-          tr[i].style.display = 'none'
-        }
-    } 
+    if (td_date) {
+      if (dateYear >= startYear
+        && dateYear <= stopYear
+        && dateMonth >= startMonth
+        && dateMonth <= stopMonth
+        && category === arrCategory) {
+        // if (new Date(td_date).getFullYear() >= new Date(input_startDate).getFullYear() && new Date(td_date).getFullYear() <= new Date(input_stopDate).getFullYear()) {
+        // show the row by setting the display property
+        // console.log(tr)
+        td_price = tr[i].getElementsByTagName('td')[1].innerHTML
+        // td_price.price
+        tr[i].style.display = 'tr'
+        // sum = parseInt(td_price + sum)
+        td_price = parseInt(td_price)
+        sum += td_price
+        // summa = parseInt(summa)
+      } else {
+        // hide the row by setting the display property
+        tr[i].style.display = 'none'
+      }
+    }
   }
-  let yearToMonth = (stopYear-startYear)*12;
+  let yearToMonth = (stopYear - startYear) * 12;
   console.log(yearToMonth)
-  let month = stopMonth-startMonth+1;
+  let month = stopMonth - startMonth + 1;
   console.log(month)
-  let months = yearToMonth+month;
+  let months = yearToMonth + month;
   console.log(months)
-  let average = sum/months;
+  let average = sum / months;
   console.log(sum)
   console.log(average)
-  totalSummary.appendChild(sum)
-  averageSummary.appendChild(average)
+  // totalSummary.appendChild(sum)
+  // averageSummary.appendChild(average)
+
+  addRow('sum', sum, average)
 }
 
+function addRow(tableID, sum, average) {
+  
+  // Get a reference to the table
+  let tableRef = document.getElementById(tableID);
+
+  // Insert a row at the end of the table
+  let newRow = tableRef.insertRow(-1);
+
+  // Insert a cell in the row at index 0
+  let newCell0 = newRow.insertCell(0);
+  let newCell1 = newRow.insertCell(1);
+  let newCell2 = newRow.insertCell(2);
+  let newCell3 = newRow.insertCell(3);
+
+  let textSum = 'Sum:'
+  let textAverage = 'Average:'
+
+  // Append a text node to the cell
+  let newSum = document.createTextNode(sum);
+  let newAverage = document.createTextNode(average)
+  newCell0.append(textSum)
+  newCell1.appendChild(newSum)
+  newCell2.append(textAverage)
+  newCell3.appendChild(newAverage)
+}
 
 // function expenseSum() {
 //   let table, tr, td_price, sum
@@ -257,7 +295,7 @@ function clearTable() {
     .forEach(x => x.remove())
 }
 
-function clearList() {
-  document.querySelectorAll('.selectCategory option')
+function clearTFooter() {
+  document.querySelectorAll('#sum tr')
     .forEach(x => x.remove())
 }
