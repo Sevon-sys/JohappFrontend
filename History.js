@@ -1,10 +1,12 @@
 let historyList = document.querySelector('.history-list')
 let summeryList = document.querySelector('.summary-list')
+let averageSummary = document.querySelector('.average')
+let totalSummary = document.querySelector('.totalSum')
 let fromDate = document.querySelector('#fromDate')
 let toDate = document.querySelector('#toDate')
 let summeryForm = document.querySelector('#summaryForm')
 let selectCategory, option;
-let optionClass = document.querySelector('.optionClass')
+// let optionClass = document.querySelector('.optionClass')
 
 
 
@@ -53,11 +55,9 @@ window.onload = (e) => {
         option.text = category.name
         selectCategory.add(option)
         option.setAttribute('class', 'optionClass')
-        let x = document.getElementById('selectCategoryId').selectedIndex;
-        console.log(document.getElementsByClassName("optionClass")[x].text)
-      });
-    })
-  }
+    });
+  })
+}
 
 // function sum() {
 //   let rows = document.querySelectorAll("2Table tr");
@@ -122,7 +122,7 @@ summaryForm.onsubmit = (e) => {
         summeryList.appendChild(item)
       })
     // }
-    searchDate()
+    searchDate(data)
     // console.log(data)
   })
 }
@@ -161,8 +161,8 @@ function filterFunction() {
 }
 
 // -------------- WORK IN PROGRESS ---------------
-function searchDate() {
-  let input_startDate, input_stopDate, td_date, table, tr, td_price, summa;
+function searchDate(data) {
+  let input_startDate, input_stopDate, td_date, table, tr, td_price, sum = 0;
 
   // get the values and convert to date
   input_startDate = document.getElementById('fromDate').value
@@ -172,6 +172,12 @@ function searchDate() {
   tr = table.getElementsByTagName('tr')
   // console.log(input_startDate)
   // console.log(input_stopDate)
+  let category = document.getElementById('selectCategoryId').value;
+  
+  let startYear = new Date(input_startDate).getFullYear()
+  let startMonth = new Date(input_startDate).getMonth()
+  let stopYear = new Date(input_stopDate).getFullYear()
+  let stopMonth = new Date(input_stopDate).getMonth()
 
   for (i = 0; i < tr.length; i++) {
     // you need to get the text and convert to date
@@ -179,23 +185,25 @@ function searchDate() {
     // console.log(td_date)                                                      //  <----- Invalid date från databasen utan .textContent
     // felmeddelandet på textContent är dels pga att det redan finns en td i tabellen, "<td>SUM: </td> <td id="sum"></td>
     // den här raden har bara två celler, så när du säger "let td_date = tr[i].getElementsByTagName('td')[3].textContent" så försöker den hitta en tredje cell som inte finns
-    
-    let startYear = new Date(input_startDate).getFullYear()
-    let startMonth = new Date(input_startDate).getMonth()
-    let stopYear = new Date(input_stopDate).getFullYear()
-    let stopMonth = new Date(input_stopDate).getMonth()
-    let dateYear = new Date(td_date).getFullYear()
-    let dateMonth = new Date(td_date).getMonth()
     // console.log(start, stop, date)
     // console.log(start, stop)
-    
+    // startYear = new Date(input_startDate).getFullYear()
+    // startMonth = new Date(input_startDate).getMonth()
+    // stopYear = new Date(input_stopDate).getFullYear()
+    // stopMonth = new Date(input_stopDate).getMonth()
+    let dateYear = new Date(td_date).getFullYear()
+    let dateMonth = new Date(td_date).getMonth()
+
+    let arr = data[i]
+    let arrCategory = arr.expensesCategories.name
     // now you can compare dates correctly
     if(td_date){
       if (dateYear >= startYear 
       && dateYear <= stopYear 
       && dateMonth >= startMonth 
-      && dateMonth <= stopMonth) {
-      // if (new Date(td_date).getFullYear() >= new Date(input_startDate).getFullYear() && new Date(td_date).getFullYear() <= new Date(input_stopDate).getFullYear()) {
+      && dateMonth <= stopMonth
+      && category === arrCategory) {
+          // if (new Date(td_date).getFullYear() >= new Date(input_startDate).getFullYear() && new Date(td_date).getFullYear() <= new Date(input_stopDate).getFullYear()) {
           // show the row by setting the display property
           // console.log(tr)
           td_price = tr[i].getElementsByTagName('td')[1].innerHTML
@@ -203,17 +211,27 @@ function searchDate() {
           tr[i].style.display = 'tr'
           // sum = parseInt(td_price + sum)
           td_price = parseInt(td_price)
-          summa += td_price 
+          sum += td_price 
           // summa = parseInt(summa)
-          console.log(typeof summa)
-          console.log(summa)
         } else {
           // hide the row by setting the display property
           tr[i].style.display = 'none'
         }
     } 
   }
+  let yearToMonth = (stopYear-startYear)*12;
+  console.log(yearToMonth)
+  let month = stopMonth-startMonth+1;
+  console.log(month)
+  let months = yearToMonth+month;
+  console.log(months)
+  let average = sum/months;
+  console.log(sum)
+  console.log(average)
+  totalSummary.appendChild(sum)
+  averageSummary.appendChild(average)
 }
+
 
 // function expenseSum() {
 //   let table, tr, td_price, sum
