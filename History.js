@@ -211,29 +211,41 @@ function searchDate(data) {
     if (td_date) {
       if (dateYear >= startYear
         && dateYear <= stopYear
-        && dateMonth >= startMonth
-        && dateMonth <= stopMonth
         && category === arrCategory) {
-        // if (new Date(td_date).getFullYear() >= new Date(input_startDate).getFullYear() && new Date(td_date).getFullYear() <= new Date(input_stopDate).getFullYear()) {
-        // show the row by setting the display property
-        // console.log(tr)
-        td_price = tr[i].getElementsByTagName('td')[1].innerHTML
-        // td_price.price
-        tr[i].style.display = 'tr'
-        // sum = parseInt(td_price + sum)
-        td_price = parseInt(td_price)
-        sum += td_price
-        // summa = parseInt(summa)
+        if (dateMonth >= startMonth
+          && dateMonth <= stopMonth
+          || dateMonth <= startMonth
+          && dateMonth <= stopMonth
+          || dateMonth <= startMonth
+          && dateMonth >= stopMonth
+          || dateMonth >= startMonth
+          && dateMonth >= stopMonth
+          && dateYear < stopYear) {
+          // if (new Date(td_date).getFullYear() >= new Date(input_startDate).getFullYear() && new Date(td_date).getFullYear() <= new Date(input_stopDate).getFullYear()) {
+          // show the row by setting the display property
+          // console.log(tr)
+          td_price = tr[i].getElementsByTagName('td')[1].innerHTML
+          // td_price.price
+          tr[i].style.display = 'tr'
+          // sum = parseInt(td_price + sum)
+          td_price = parseInt(td_price)
+          sum += td_price
+          // summa = parseInt(summa)
+        } else {
+          // hide the row by setting the display property
+          tr[i].style.display = 'none'
+        }
       } else {
         // hide the row by setting the display property
         tr[i].style.display = 'none'
       }
     }
   }
+
   let yearToMonth = (stopYear - startYear) * 12;
-  console.log(yearToMonth)
+  // console.log(yearToMonth)
   let month = stopMonth - startMonth + 1;
-  console.log(month)
+  // console.log(month)
   let months = yearToMonth + month;
   console.log(months)
   let average = sum / months;
@@ -242,11 +254,15 @@ function searchDate(data) {
   // totalSummary.appendChild(sum)
   // averageSummary.appendChild(average)
 
+  // För ett år
+  let oneYear = yearToMonth - stopMonth + startMonth + 1
+  console.log(oneYear)
+
   addRow('sum', sum, average)
 }
 
 function addRow(tableID, sum, average) {
-  
+
   // Get a reference to the table
   let tableRef = document.getElementById(tableID);
 
