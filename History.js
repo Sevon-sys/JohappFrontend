@@ -219,7 +219,6 @@ function searchDate(data) {
   let startMonth = new Date(input_startDate).getMonth()
   let stopYear = new Date(input_stopDate).getFullYear()
   let stopMonth = new Date(input_stopDate).getMonth()
-
   for (i = 0; i < tr.length; i++) {
     // you need to get the text and convert to date
     td_date = tr[i].getElementsByTagName('td')[2].textContent            //  <----- Felmeddelande på textContent
@@ -250,10 +249,11 @@ function searchDate(data) {
           || dateMonth >= startMonth
           && dateMonth >= stopMonth
           && dateYear < stopYear) {
-          // if (new Date(td_date).getFullYear() >= new Date(input_startDate).getFullYear() && new Date(td_date).getFullYear() <= new Date(input_stopDate).getFullYear()) {
-          // show the row by setting the display property
-          // console.log(tr)
-          td_price = tr[i].getElementsByTagName('td')[1].innerHTML
+            // if (new Date(td_date).getFullYear() >= new Date(input_startDate).getFullYear() && new Date(td_date).getFullYear() <= new Date(input_stopDate).getFullYear()) {
+              // show the row by setting the display property
+              // console.log(tr)
+              debugger
+          td_price = tr[i].getElementsByTagName('td')[1].textContent
           // td_price.price
           tr[i].style.display = 'tr'
           // sum = parseInt(td_price + sum)
